@@ -11,14 +11,13 @@
       --color-gray-medium: #6b7280;
       --color-gray-light: #f3f4f6;
       --color-white: #ffffff;
-      --color-dark: #1f2937; /* Dark mode background */
+      --color-dark: #1f2937;
       --border-radius: 0.75rem;
       --shadow-light: 0 2px 6px rgba(0, 0, 0, 0.1);
       --font-headline: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       --theme: var(--color-white);
     }
 
-    /* Reset & base */
     *, *::before, *::after {
       box-sizing: border-box;
     }
@@ -45,7 +44,6 @@
       user-select: none;
     }
 
-    /* Container and Layout */
     .container {
       max-width: 1200px;
       margin: 0 auto;
@@ -55,7 +53,6 @@
       gap: 3rem;
     }
 
-    /* Header */
     header {
       position: sticky;
       top: 0;
@@ -92,7 +89,6 @@
       outline: none;
     }
 
-    /* Hero */
     .hero {
       text-align: center;
       max-width: 650px;
@@ -128,7 +124,6 @@
       outline: none;
     }
 
-    /* Scorecard */
     .scorecard {
       background-color: var(--color-gray-light);
       border-radius: var(--border-radius);
@@ -171,7 +166,7 @@
       font-weight: 800;
       color: var(--color-black);
       margin-bottom: 1.5rem;
-      transition: color 0.3s ease; /* Added transition for score color */
+      transition: color 0.3s ease;
     }
 
     .buttons {
@@ -194,7 +189,6 @@
       outline: none;
     }
 
-    /* Footer notes */
     footer {
       text-align: center;
       color: var(--color-gray-medium);
@@ -203,7 +197,6 @@
       user-select: none;
     }
 
-    /* Responsive */
     @media (max-width: 720px) {
       .teams {
         flex-direction: column;
@@ -222,7 +215,7 @@
     <nav>
       <a href="#scorecard" tabindex="0">Scorecard</a>
       <a href="#about" tabindex="0">About</a>
-      <button onclick="toggleTheme()">Toggle Theme</button> <!-- Added theme toggle button -->
+      <button onclick="toggleTheme()">Toggle Theme</button>
     </nav>
   </header>
 
@@ -274,7 +267,7 @@
     function addPoints(team, points) {
       scores[team] += points;
       updateScoreUI(team);
-      highlightScore(team); // Highlight score on update
+      highlightScore(team);
     }
 
     function updateScoreUI(team) {
@@ -284,9 +277,9 @@
 
     function highlightScore(team) {
       const scoreElement = document.getElementById('score' + team);
-      scoreElement.style.color = '#e74c3c'; // Change color to highlight
+      scoreElement.style.color = '#e74c3c';
       setTimeout(() => {
-        scoreElement.style.color = 'var(--color-black)'; // Reset color
+        scoreElement.style.color = 'var(--color-black)';
       }, 500);
     }
 
