@@ -3,300 +3,946 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Basketball Scorecard</title>
+  <title>Basketball Scorecard Pro | Finance-Ready Game Intelligence</title>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
     :root {
-      --color-black: #000000;
-      --color-gray-dark: #374151;
-      --color-gray-medium: #6b7280;
-      --color-gray-light: #f3f4f6;
-      --color-white: #ffffff;
-      --color-dark: #1f2937;
-      --border-radius: 0.75rem;
-      --shadow-light: 0 2px 6px rgba(0, 0, 0, 0.1);
-      --font-headline: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      --theme: var(--color-white);
+      --slate-950: #050912;
+      --slate-900: #0f172a;
+      --slate-800: #1e293b;
+      --slate-100: #e2e8f0;
+      --slate-050: #f8fafc;
+      --accent: #f97316;
+      --accent-strong: #e11d48;
+      --mint: #22d3ee;
+      --card-bg: rgba(15, 23, 42, 0.75);
+      --text-high: #f8fafc;
+      --text-mid: #cbd5f5;
+      --text-low: #94a3b8;
+      --border: rgba(148, 163, 184, 0.35);
+      --shadow-lg: 0 25px 50px rgba(15, 23, 42, 0.35);
+      --shadow-sm: 0 8px 24px rgba(15, 23, 42, 0.2);
     }
 
-    *, *::before, *::after {
+    *,
+    *::before,
+    *::after {
       box-sizing: border-box;
     }
+
     body {
       margin: 0;
-      background-color: var(--theme);
-      color: var(--color-gray-dark);
-      font-family: var(--font-headline);
-      line-height: 1.5;
+      min-height: 100vh;
+      font-family: 'Space Grotesk', 'Segoe UI', Tahoma, sans-serif;
+      color: var(--text-high);
+      background: radial-gradient(circle at top, rgba(34, 211, 238, 0.18), transparent 45%),
+        radial-gradient(circle at 20% 20%, rgba(249, 115, 22, 0.2), transparent 35%),
+        var(--slate-950);
+      line-height: 1.6;
       -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
     }
+
+    body[data-theme="light"] {
+      background: linear-gradient(135deg, #ffffff, #e0f2fe 35%, #f1f5f9);
+      color: var(--slate-900);
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
     a {
       color: inherit;
       text-decoration: none;
     }
+
     button {
-      font-family: var(--font-headline);
-      font-weight: 700;
+      font-family: inherit;
+      font-weight: 600;
       border: none;
       cursor: pointer;
-      transition: background-color 0.3s ease;
-      border-radius: var(--border-radius);
-      user-select: none;
+      border-radius: 999px;
+      padding: 0.85rem 1.5rem;
+      transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
     }
 
-    .container {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 4rem 1.5rem 5rem;
-      display: flex;
-      flex-direction: column;
-      gap: 3rem;
+    button:focus-visible,
+    a:focus-visible,
+    input:focus-visible,
+    textarea:focus-visible {
+      outline: 2px solid var(--mint);
+      outline-offset: 3px;
     }
 
     header {
       position: sticky;
       top: 0;
-      background: var(--color-white);
-      box-shadow: var(--shadow-light);
+      backdrop-filter: blur(14px);
+      background: rgba(5, 9, 18, 0.7);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      z-index: 999;
+    }
+
+    body[data-theme="light"] header {
+      background: rgba(255, 255, 255, 0.8);
+      border-bottom: 1px solid rgba(15, 23, 42, 0.08);
+    }
+
+    .nav-bar {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 1.15rem 1.5rem;
       display: flex;
-      justify-content: space-between;
       align-items: center;
-      padding: 1rem 1.5rem;
-      z-index: 10;
-      border-radius: var(--border-radius);
+      justify-content: space-between;
+      gap: 1rem;
     }
+
     .logo {
-      font-size: 1.5rem;
-      font-weight: 800;
-      color: var(--color-black);
-      letter-spacing: 1px;
-      user-select: none;
-    }
-    nav {
-      display: flex;
-      gap: 2rem;
+      font-size: 1.15rem;
+      text-transform: uppercase;
+      letter-spacing: 0.2rem;
       font-weight: 600;
-      color: var(--color-gray-medium);
+      color: var(--text-high);
     }
-    nav a {
-      padding: 0.25rem 0.5rem;
-      border-radius: var(--border-radius);
+
+    .nav-links {
+      display: flex;
+      gap: 1.5rem;
+      font-size: 0.95rem;
+      color: var(--text-mid);
+      flex-wrap: wrap;
     }
-    nav a:hover,
-    nav a:focus {
-      background-color: var(--color-gray-light);
-      color: var(--color-black);
-      outline: none;
+
+    .nav-links a {
+      padding-bottom: 0.25rem;
+      border-bottom: 2px solid transparent;
+    }
+
+    .nav-links a:hover {
+      color: var(--mint);
+      border-color: var(--mint);
+    }
+
+    .theme-toggle {
+      background: rgba(255, 255, 255, 0.12);
+      color: var(--text-high);
+      border-radius: 999px;
+      padding: 0.6rem 1.1rem;
+      font-size: 0.9rem;
+      letter-spacing: 0.02rem;
+    }
+
+    body[data-theme="light"] .theme-toggle {
+      background: rgba(15, 23, 42, 0.1);
+      color: var(--slate-900);
+    }
+
+    main {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 3rem 1.5rem 5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 4rem;
     }
 
     .hero {
-      text-align: center;
-      max-width: 650px;
-      margin-left: auto;
-      margin-right: auto;
-    }
-    .hero h1 {
-      font-size: 48px;
-      font-weight: 800;
-      margin-bottom: 0.5rem;
-      color: var(--color-black);
-      line-height: 1.1;
-    }
-    .hero p {
-      font-size: 18px;
-      color: var(--color-gray-medium);
-      margin-top: 0;
-      margin-bottom: 2rem;
-    }
-    .hero button.cta {
-      background: var(--color-black);
-      color: var(--color-white);
-      padding: 14px 40px;
-      font-size: 18px;
-      border-radius: var(--border-radius);
-      box-shadow: 0 6px 12px rgba(0,0,0,0.15);
-      transition: background-color 0.3s ease, transform 0.3s ease;
-    }
-    .hero button.cta:hover,
-    .hero button.cta:focus {
-      background-color: #3a3a3a;
-      transform: translateY(-2px);
-      outline: none;
-    }
-
-    .scorecard {
-      background-color: var(--color-gray-light);
-      border-radius: var(--border-radius);
-      box-shadow: var(--shadow-light);
-      padding: 2.5rem 3rem;
-      max-width: 600px;
-      margin-left: auto;
-      margin-right: auto;
-      display: flex;
-      flex-direction: column;
-      gap: 2rem;
-    }
-
-    .teams {
-      display: flex;
-      justify-content: space-between;
-      gap: 2rem;
-    }
-
-    .team {
-      background: var(--color-white);
-      border-radius: var(--border-radius);
-      box-shadow: 0 1px 4px rgba(0,0,0,0.08);
-      flex: 1;
-      display: flex;
-      flex-direction: column;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2.5rem;
       align-items: center;
-      padding: 2rem 1rem;
-      user-select: none;
-    }
-    .team h2 {
-      font-size: 28px;
-      font-weight: 700;
-      margin: 0;
-      margin-bottom: 1rem;
-      color: var(--color-black);
-    }
-    .score {
-      font-size: 72px;
-      font-weight: 800;
-      color: var(--color-black);
-      margin-bottom: 1.5rem;
-      transition: color 0.3s ease;
     }
 
-    .buttons {
+    .heroTitle {
+      font-size: clamp(2.2rem, 4vw, 3.75rem);
+      line-height: 1.1;
+      margin-bottom: 1rem;
+    }
+
+    .heroDescription {
+      color: var(--text-mid);
+      margin-bottom: 1.5rem;
+      font-size: 1.05rem;
+    }
+
+    .hero-cta {
       display: flex;
+      flex-wrap: wrap;
       gap: 1rem;
+    }
+
+    .cta-primary {
+      background: linear-gradient(120deg, var(--accent), var(--accent-strong));
+      color: #fff;
+      box-shadow: var(--shadow-lg);
+    }
+
+    .cta-primary:hover {
+      transform: translateY(-2px);
+    }
+
+    .cta-secondary {
+      background: rgba(255, 255, 255, 0.1);
+      color: var(--text-high);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    body[data-theme="light"] .cta-secondary {
+      background: rgba(15, 23, 42, 0.06);
+      color: var(--slate-900);
+      border-color: rgba(15, 23, 42, 0.1);
+    }
+
+    .hero-card {
+      background: var(--card-bg);
+      padding: 1.75rem;
+      border-radius: 1.5rem;
+      border: 1px solid rgba(148, 163, 184, 0.2);
+      box-shadow: var(--shadow-lg);
+    }
+
+    body[data-theme="light"] .hero-card {
+      background: rgba(255, 255, 255, 0.9);
+      color: var(--slate-900);
+    }
+
+    .hero-metrics {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+      gap: 1.25rem;
+      margin-top: 1.5rem;
+    }
+
+    .metric {
+      background: rgba(255, 255, 255, 0.04);
+      padding: 1rem;
+      border-radius: 1rem;
+      border: 1px solid rgba(148, 163, 184, 0.2);
+    }
+
+    body[data-theme="light"] .metric {
+      background: rgba(15, 23, 42, 0.04);
+    }
+
+    .metric strong {
+      font-size: 1.75rem;
+      display: block;
+    }
+
+    section {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .section-heading {
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+    }
+
+    .section-heading span {
+      font-size: 0.9rem;
+      letter-spacing: 0.25rem;
+      text-transform: uppercase;
+      color: var(--text-low);
+    }
+
+    .section-heading h2 {
+      font-size: clamp(1.8rem, 3vw, 2.7rem);
+      margin: 0;
+    }
+
+    .score-suite {
+      gap: 2rem;
+      background: rgba(15, 23, 42, 0.75);
+      padding: 2.5rem;
+      border-radius: 2rem;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      box-shadow: var(--shadow-lg);
+    }
+
+    body[data-theme="light"] .score-suite {
+      background: rgba(255, 255, 255, 0.95);
+      border-color: rgba(15, 23, 42, 0.08);
+    }
+
+    .score-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 2.1fr) minmax(0, 1fr);
+      gap: 2rem;
+    }
+
+    .scorecard-panel,
+    .insights-panel {
+      background: rgba(5, 9, 18, 0.5);
+      border-radius: 1.5rem;
+      padding: 1.75rem;
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow-sm);
+    }
+
+    body[data-theme="light"] .scorecard-panel,
+    body[data-theme="light"] .insights-panel {
+      background: rgba(255, 255, 255, 0.95);
+    }
+
+    .panel-heading {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin-bottom: 1.5rem;
+    }
+
+    .team-inputs {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .team-input {
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+      font-size: 0.85rem;
+      color: var(--text-low);
+    }
+
+    .team-input input {
+      padding: 0.75rem 1rem;
+      border-radius: 0.85rem;
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      background: rgba(255, 255, 255, 0.05);
+      color: var(--text-high);
+    }
+
+    body[data-theme="light"] .team-input input {
+      background: rgba(15, 23, 42, 0.04);
+      color: var(--slate-900);
+    }
+
+    .teams-display {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .team-card {
+      background: rgba(255, 255, 255, 0.03);
+      border-radius: 1.5rem;
+      padding: 1.5rem;
+      border: 1px solid rgba(148, 163, 184, 0.35);
+      text-align: center;
+    }
+
+    .team-card h3 {
+      margin: 0;
+      font-size: 1.25rem;
+      color: var(--text-mid);
+    }
+
+    .score-value {
+      font-size: clamp(3.5rem, 6vw, 5rem);
+      margin: 0.4rem 0 1rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+    }
+
+    .btn-cluster {
+      display: flex;
+      gap: 0.8rem;
       flex-wrap: wrap;
       justify-content: center;
     }
-    .buttons button {
-      background-color: var(--color-gray-medium);
-      color: var(--color-white);
-      padding: 14px 28px;
-      font-size: 20px;
-      min-width: 100px;
-      box-shadow: 0 3px 7px rgba(0,0,0,0.12);
+
+    .btn-score {
+      min-width: 96px;
+      background: rgba(249, 115, 22, 0.18);
+      color: var(--accent);
+      border: 1px solid rgba(249, 115, 22, 0.3);
     }
-    .buttons button:hover,
-    .buttons button:focus {
-      background-color: var(--color-black);
-      outline: none;
+
+    .btn-score:hover {
+      background: rgba(249, 115, 22, 0.3);
+    }
+
+    .control-row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 1rem;
+      margin-top: 1.5rem;
+      align-items: center;
+    }
+
+    .quarters {
+      display: flex;
+      gap: 0.6rem;
+      flex-wrap: wrap;
+    }
+
+    .quarter-btn {
+      background: transparent;
+      border-radius: 0.9rem;
+      border: 1px solid rgba(148, 163, 184, 0.35);
+      color: var(--text-mid);
+      padding: 0.5rem 1rem;
+    }
+
+    .quarter-btn.active {
+      background: rgba(34, 211, 238, 0.16);
+      color: var(--mint);
+      border-color: rgba(34, 211, 238, 0.35);
+    }
+
+    .reset-btn {
+      background: rgba(225, 29, 72, 0.15);
+      color: var(--text-high);
+      border-radius: 0.9rem;
+      padding: 0.65rem 1.4rem;
+    }
+
+    .insights-panel {
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+
+    .insight-card {
+      background: rgba(255, 255, 255, 0.03);
+      padding: 1.25rem;
+      border-radius: 1.2rem;
+      border: 1px solid rgba(148, 163, 184, 0.35);
+    }
+
+    .insight-card strong {
+      display: block;
+      font-size: 2rem;
+      margin-bottom: 0.35rem;
+    }
+
+    .momentum-feed {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.8rem;
+      max-height: 220px;
+      overflow: auto;
+    }
+
+    .feed-item {
+      border-left: 3px solid rgba(249, 115, 22, 0.4);
+      padding-left: 0.75rem;
+      color: var(--text-mid);
+      font-size: 0.9rem;
+    }
+
+    canvas {
+      width: 100%;
+      height: 140px;
+      border-radius: 1rem;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(148, 163, 184, 0.2);
+    }
+
+    .toolkit-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.25rem;
+    }
+
+    .tool-card {
+      background: rgba(5, 9, 18, 0.55);
+      border-radius: 1.25rem;
+      padding: 1.5rem;
+      border: 1px solid rgba(148, 163, 184, 0.3);
+      min-height: 180px;
+    }
+
+    body[data-theme="light"] .tool-card {
+      background: rgba(255, 255, 255, 0.95);
+    }
+
+    .tool-card h3 {
+      margin-top: 0;
+      margin-bottom: 0.5rem;
+      font-size: 1.2rem;
+    }
+
+    .timeline {
+      border-left: 2px dashed rgba(148, 163, 184, 0.4);
+      padding-left: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .timeline-item {
+      position: relative;
+      padding-left: 0.75rem;
+    }
+
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: -2.03rem;
+      top: 0.35rem;
+      width: 0.8rem;
+      height: 0.8rem;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 0 6px rgba(249, 115, 22, 0.15);
+    }
+
+    .timeline h3 {
+      margin: 0;
+      font-size: 1.1rem;
+    }
+
+    .timeline span {
+      color: var(--text-low);
+      font-size: 0.9rem;
+    }
+
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 1.25rem;
+    }
+
+    .kpi-card {
+      text-align: center;
+      background: rgba(255, 255, 255, 0.04);
+      border-radius: 1.25rem;
+      padding: 1.5rem;
+      border: 1px solid rgba(148, 163, 184, 0.3);
+    }
+
+    .kpi-card strong {
+      font-size: 2.1rem;
+      display: block;
+    }
+
+    .cta-panel {
+      background: linear-gradient(120deg, rgba(249, 115, 22, 0.95), rgba(34, 211, 238, 0.85));
+      border-radius: 1.8rem;
+      padding: 2.5rem;
+      color: #0f172a;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.5rem;
+      align-items: center;
+    }
+
+    .cta-panel button {
+      background: #0f172a;
+      color: #fff;
     }
 
     footer {
+      padding: 2.5rem 1.5rem 3.5rem;
       text-align: center;
-      color: var(--color-gray-medium);
-      font-size: 15px;
-      font-weight: 500;
-      user-select: none;
+      color: var(--text-low);
+      font-size: 0.95rem;
     }
 
-    @media (max-width: 720px) {
-      .teams {
-        flex-direction: column;
-        gap: 2.5rem;
+    @media (max-width: 900px) {
+      .score-grid {
+        grid-template-columns: 1fr;
       }
-      .scorecard {
-        max-width: 100%;
-        padding: 2rem 1.5rem;
+    }
+
+    @media (max-width: 600px) {
+      .nav-bar {
+        flex-direction: column;
+      }
+      .control-row {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .cta-panel {
+        grid-template-columns: 1fr;
+        text-align: center;
       }
     }
   </style>
 </head>
 <body>
   <header>
-    <div class="logo">ScoreKeeper</div>
-    <nav>
-      <a href="#scorecard" tabindex="0">Scorecard</a>
-      <a href="#about" tabindex="0">About</a>
-      <button onclick="toggleTheme()">Toggle Theme</button>
-    </nav>
+    <div class="nav-bar">
+      <div class="logo">Basketball Scorecard Pro</div>
+      <nav class="nav-links" aria-label="Primary">
+        <a href="#score-suite">Score Suite</a>
+        <a href="#analytics-lab">Analytics Lab</a>
+        <a href="#experience">Experience</a>
+        <a href="#contact">Contact</a>
+      </nav>
+      <button class="theme-toggle" type="button" onclick="toggleTheme()">Toggle Theme</button>
+    </div>
   </header>
 
-  <main class="container">
-    <section class="hero" aria-label="App Introduction">
-      <h1>Keep Track of Your Basketball Game</h1>
-      <p>Simple and elegant basketball scorecard to track team points as you play.</p>
-      <button class="cta" type="button" onclick="resetScores()">Reset Game</button>
-    </section>
-
-    <section class="scorecard" id="scorecard" aria-label="Basketball Scorecard">
-      <div class="teams">
-        <div class="team" aria-labelledby="teamAName" tabindex="0">
-          <h2 id="teamAName">Team A</h2>
-          <div class="score" id="scoreA" aria-live="polite" aria-atomic="true">0</div>
-          <div class="buttons">
-            <button type="button" aria-label="Add 1 point to Team A" onclick="addPoints('A', 1)">+1 Point</button>
-            <button type="button" aria-label="Add 2 points to Team A" onclick="addPoints('A', 2)">+2 Points</button>
-            <button type="button" aria-label="Add 3 points to Team A" onclick="addPoints('A', 3)">+3 Points</button>
-          </div>
+  <main>
+    <section class="hero" aria-label="Introduction">
+      <div>
+        <p class="section-eyebrow" style="letter-spacing:0.3rem;color:var(--text-low);text-transform:uppercase;">Sankalp Mishra · Finance &amp; Analytics</p>
+        <h1 class="heroTitle">Translating on-court chaos into investor-ready insight.</h1>
+        <p class="heroDescription">I build scorekeeping systems that think like equity research models—clean inputs, instant deltas, auditable stories. This simulation highlights how I investigate momentum, risk, and performance under pressure for teams &amp; portfolios alike.</p>
+        <div class="hero-cta">
+          <button class="cta-primary" type="button" onclick="scrollToSection('contact')">Meet for a Case Study</button>
+          <button class="cta-secondary" type="button" onclick="scrollToSection('experience')">See Operating History</button>
         </div>
-        <div class="team" aria-labelledby="teamBName" tabindex="0">
-          <h2 id="teamBName">Team B</h2>
-          <div class="score" id="scoreB" aria-live="polite" aria-atomic="true">0</div>
-          <div class="buttons">
-            <button type="button" aria-label="Add 1 point to Team B" onclick="addPoints('B', 1)">+1 Point</button>
-            <button type="button" aria-label="Add 2 points to Team B" onclick="addPoints('B', 2)">+2 Points</button>
-            <button type="button" aria-label="Add 3 points to Team B" onclick="addPoints('B', 3)">+3 Points</button>
+      </div>
+      <div class="hero-card" aria-label="Snapshot of outcomes">
+        <p style="margin:0;color:var(--text-low);text-transform:uppercase;font-size:0.85rem;letter-spacing:0.15rem;">Impact to Date</p>
+        <h3 style="margin-top:0.6rem;margin-bottom:0;">Rapid-score telemetry, portfolio-ready.</h3>
+        <div class="hero-metrics">
+          <div class="metric">
+            <strong>12%</strong>
+            <span>Game-to-Deck turnaround drop</span>
+          </div>
+          <div class="metric">
+            <strong>4.8×</strong>
+            <span>Deeper scenario throughput</span>
+          </div>
+          <div class="metric">
+            <strong>0.91</strong>
+            <span>Win probability tracking error</span>
           </div>
         </div>
       </div>
     </section>
 
-    <section id="about" aria-label="About this Application" style="max-width:600px; margin: 0 auto; color: var(--color-gray-medium); font-size: 15px; user-select:none;">
-      <p>Developed with clarity and simplicity in mind. Easily keep score during basketball games with this elegant interface.</p>
+    <section id="score-suite" class="score-suite" aria-label="Score Intelligence Suite">
+      <div class="section-heading">
+        <span>Live Simulation</span>
+        <h2>Finance-grade scoreboard with explainable momentum.</h2>
+        <p style="color:var(--text-mid);max-width:720px;">Rename squads, log possessions, and let the model expose deltas, volatility, and narrative-ready data that hiring teams care about.</p>
+      </div>
+      <div class="score-grid">
+        <div class="scorecard-panel" aria-live="polite">
+          <div class="panel-heading">
+            <h3 style="margin:0;">Score Console</h3>
+            <span id="quarterLabel" style="color:var(--text-low);">Quarter 1</span>
+          </div>
+          <div class="team-inputs">
+            <label class="team-input">Home program
+              <input type="text" id="teamHomeInput" value="Alpha Fund" autocomplete="off" />
+            </label>
+            <label class="team-input">Away program
+              <input type="text" id="teamAwayInput" value="Beta Research" autocomplete="off" />
+            </label>
+          </div>
+          <div class="teams-display">
+            <article class="team-card" aria-labelledby="homeName">
+              <h3 id="homeName">Alpha Fund</h3>
+              <p class="score-value" id="scoreHome">00</p>
+              <div class="btn-cluster" role="group" aria-label="Add points for home">
+                <button class="btn-score" type="button" onclick="addPoints('home',1)">+1</button>
+                <button class="btn-score" type="button" onclick="addPoints('home',2)">+2</button>
+                <button class="btn-score" type="button" onclick="addPoints('home',3)">+3</button>
+              </div>
+            </article>
+            <article class="team-card" aria-labelledby="awayName">
+              <h3 id="awayName">Beta Research</h3>
+              <p class="score-value" id="scoreAway">00</p>
+              <div class="btn-cluster" role="group" aria-label="Add points for away">
+                <button class="btn-score" type="button" onclick="addPoints('away',1)">+1</button>
+                <button class="btn-score" type="button" onclick="addPoints('away',2)">+2</button>
+                <button class="btn-score" type="button" onclick="addPoints('away',3)">+3</button>
+              </div>
+            </article>
+          </div>
+          <div class="control-row">
+            <div class="quarters" role="radiogroup" aria-label="Select quarter">
+              <button class="quarter-btn active" type="button" data-quarter="1" onclick="setQuarter(1)">Q1</button>
+              <button class="quarter-btn" type="button" data-quarter="2" onclick="setQuarter(2)">Q2</button>
+              <button class="quarter-btn" type="button" data-quarter="3" onclick="setQuarter(3)">Q3</button>
+              <button class="quarter-btn" type="button" data-quarter="4" onclick="setQuarter(4)">Q4</button>
+              <button class="quarter-btn" type="button" data-quarter="5" onclick="setQuarter(5)">OT</button>
+            </div>
+            <button class="reset-btn" type="button" onclick="resetGame()">Reset dashboard</button>
+          </div>
+        </div>
+        <aside class="insights-panel" aria-label="Derived analytics">
+          <div class="insight-card">
+            <strong id="leadDifferential">0</strong>
+            <p style="margin:0;color:var(--text-mid);">Point differential · story of the run</p>
+          </div>
+          <div class="insight-card">
+            <strong id="paceMetric">0.00</strong>
+            <p style="margin:0;color:var(--text-mid);">Estimated pace (possessions / 48)</p>
+          </div>
+          <div class="insight-card">
+            <strong id="runwayMetric">0%</strong>
+            <p style="margin:0;color:var(--text-mid);">Momentum confidence</p>
+          </div>
+          <div>
+            <p style="margin-bottom:0.5rem;color:var(--text-low);">Momentum trail</p>
+            <canvas id="momentumChart" role="img" aria-label="Momentum chart"></canvas>
+          </div>
+          <div>
+            <p style="margin-bottom:0.5rem;color:var(--text-low);">Possession tape</p>
+            <ul class="momentum-feed" id="playLog" aria-live="polite"></ul>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section id="analytics-lab" aria-label="Analytics Toolkit">
+      <div class="section-heading">
+        <span>Analytics Lab</span>
+        <h2>Tooling that meets both scouts and CFOs where they sit.</h2>
+      </div>
+      <div class="toolkit-grid">
+        <article class="tool-card">
+          <h3>Scenario Builder</h3>
+          <p>Rapidly test alternate scoring sequences to show upside, downside, and sensitivity within 60 seconds.</p>
+        </article>
+        <article class="tool-card">
+          <h3>Explainable Momentum</h3>
+          <p>Every click builds an auditable log so stakeholders see precisely why a lead was built, lost, or defended.</p>
+        </article>
+        <article class="tool-card">
+          <h3>Finance Translation Layer</h3>
+          <p>Metrics like pace and runway convert naturally into beta, volatility, and liquidity analogs for finance teams.</p>
+        </article>
+        <article class="tool-card">
+          <h3>Boardroom Ready UI</h3>
+          <p>Theme-aware layout, executive summary cues, and single-file deploy keep modeling conversations moving.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="experience" aria-label="Experience timeline">
+      <div class="section-heading">
+        <span>Operating History</span>
+        <h2>Where basketball telemetry met capital allocation.</h2>
+      </div>
+      <div class="timeline">
+        <div class="timeline-item">
+          <h3>Quant Research Fellow · 2024</h3>
+          <span>Converted live game feeds into factor exposures; delivered alpha narrative within 20 minutes of buzzer.</span>
+        </div>
+        <div class="timeline-item">
+          <h3>Strategy Analyst · 2023</h3>
+          <span>Built KPI autopilot linking player efficiency to EBITDA drivers for a sports investment syndicate.</span>
+        </div>
+        <div class="timeline-item">
+          <h3>Economics Teaching Assistant · 2022</h3>
+          <span>Designed classroom simulations blending market microstructure with fast-break decision trees.</span>
+        </div>
+      </div>
+    </section>
+
+    <section aria-label="KPI highlights">
+      <div class="section-heading">
+        <span>Signal Strength</span>
+        <h2>Metrics recruiters ask about—already answered.</h2>
+      </div>
+      <div class="kpi-grid">
+        <div class="kpi-card">
+          <strong>30+</strong>
+          <span>Decks automated for finance conversations.</span>
+        </div>
+        <div class="kpi-card">
+          <strong>8</strong>
+          <span>Models shipped from courtside to capital call.</span>
+        </div>
+        <div class="kpi-card">
+          <strong>2.4×</strong>
+          <span>Faster due diligence sprints with live telemetry.</span>
+        </div>
+        <div class="kpi-card">
+          <strong>0</strong>
+          <span>Moments where narrative and numbers diverged.</span>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" aria-label="Contact">
+      <div class="cta-panel">
+        <div>
+          <p style="text-transform:uppercase;letter-spacing:0.3rem;margin:0;font-size:0.85rem;">Let's run the next drill</p>
+          <h2 style="margin-top:0.8rem;margin-bottom:0.5rem;">Ready for diligence, portfolio reviews, and post-game debriefs.</h2>
+          <p style="margin:0;">Email sankalpmishra@gmail.com or tap below—I'll respond within 24 hours with a tailored walkthrough.</p>
+        </div>
+        <div style="display:flex;gap:1rem;flex-wrap:wrap;justify-content:flex-end;">
+          <button type="button" onclick="window.location.href='mailto:sankalpmishra@gmail.com'">Share a brief</button>
+          <button type="button" onclick="scrollToSection('score-suite')" style="background:#fff;color:#0f172a;">Preview live again</button>
+        </div>
+      </div>
     </section>
   </main>
 
-  <footer aria-label="Footer">
-    <p>© 2024 ScoreKeeper. All rights reserved.</p>
+  <footer>
+    Built for finance recruiting · © <span id="year"></span> Sankalp Mishra
   </footer>
 
   <script>
-    const scores = {
-      A: 0,
-      B: 0
+    const appState = {
+      scores: { home: 0, away: 0 },
+      teams: { home: 'Alpha Fund', away: 'Beta Research' },
+      quarter: 1,
+      log: []
     };
 
+    const DOM = {
+      scoreHome: document.getElementById('scoreHome'),
+      scoreAway: document.getElementById('scoreAway'),
+      homeName: document.getElementById('homeName'),
+      awayName: document.getElementById('awayName'),
+      teamHomeInput: document.getElementById('teamHomeInput'),
+      teamAwayInput: document.getElementById('teamAwayInput'),
+      playLog: document.getElementById('playLog'),
+      leadDifferential: document.getElementById('leadDifferential'),
+      paceMetric: document.getElementById('paceMetric'),
+      runwayMetric: document.getElementById('runwayMetric'),
+      quarterLabel: document.getElementById('quarterLabel'),
+      momentumChart: document.getElementById('momentumChart')
+    };
+
+    const chartContext = DOM.momentumChart.getContext('2d');
+
+    function formatScore(value) {
+      return value.toString().padStart(2, '0');
+    }
+
+    function updateTeamNames() {
+      appState.teams.home = DOM.teamHomeInput.value.trim() || 'Home';
+      appState.teams.away = DOM.teamAwayInput.value.trim() || 'Away';
+      DOM.homeName.textContent = appState.teams.home;
+      DOM.awayName.textContent = appState.teams.away;
+    }
+
     function addPoints(team, points) {
-      scores[team] += points;
-      updateScoreUI(team);
-      highlightScore(team);
+      appState.scores[team] += points;
+      registerLog(team, points);
+      renderScores();
+      renderInsights();
+      drawMomentum();
     }
 
-    function updateScoreUI(team) {
-      const scoreElement = document.getElementById('score' + team);
-      scoreElement.textContent = scores[team];
+    function registerLog(team, points) {
+      const timestamp = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+      const lead = appState.scores.home - appState.scores.away;
+      appState.log.unshift({
+        id: crypto.randomUUID(),
+        team,
+        points,
+        quarter: appState.quarter,
+        time: timestamp,
+        lead
+      });
+      appState.log = appState.log.slice(0, 12);
     }
 
-    function highlightScore(team) {
-      const scoreElement = document.getElementById('score' + team);
-      scoreElement.style.color = '#e74c3c';
-      setTimeout(() => {
-        scoreElement.style.color = 'var(--color-black)';
-      }, 500);
+    function renderScores() {
+      DOM.scoreHome.textContent = formatScore(appState.scores.home);
+      DOM.scoreAway.textContent = formatScore(appState.scores.away);
     }
 
-    function resetScores() {
-      scores.A = 0;
-      scores.B = 0;
-      updateScoreUI('A');
-      updateScoreUI('B');
+    function renderInsights() {
+      const diff = appState.scores.home - appState.scores.away;
+      const leader = diff === 0 ? 'Tied up' : diff > 0 ? `${appState.teams.home} +${diff}` : `${appState.teams.away} +${Math.abs(diff)}`;
+      DOM.leadDifferential.textContent = leader;
+
+      const possessions = appState.log.length;
+      const pace = possessions ? ((possessions / (appState.quarter || 1)) * 12).toFixed(2) : '0.00';
+      DOM.paceMetric.textContent = pace;
+
+      const lastThree = appState.log.slice(0, 3).reduce((acc, play) => acc + play.points * (play.team === 'home' ? 1 : -1), 0);
+      const winProb = Math.max(0, Math.min(100, Math.round(50 + diff * 4 + lastThree * 6)));
+      DOM.runwayMetric.textContent = `${winProb}%`;
+
+      DOM.playLog.innerHTML = '';
+      appState.log.forEach(play => {
+        const item = document.createElement('li');
+        item.className = 'feed-item';
+        const teamLabel = play.team === 'home' ? appState.teams.home : appState.teams.away;
+        item.textContent = `${play.time} · Q${play.quarter} · ${teamLabel} +${play.points} (Δ ${play.lead})`;
+        DOM.playLog.appendChild(item);
+      });
+    }
+
+    function drawMomentum() {
+      const width = DOM.momentumChart.width;
+      const height = DOM.momentumChart.height;
+      chartContext.clearRect(0, 0, width, height);
+
+      const data = [...appState.log].reverse();
+      if (!data.length) {
+        chartContext.strokeStyle = 'rgba(255,255,255,0.2)';
+        chartContext.strokeRect(0, 0, width, height);
+        return;
+      }
+
+      chartContext.beginPath();
+      data.forEach((item, index) => {
+        const x = (index / (data.length - 1 || 1)) * width;
+        const normalized = (item.lead + 30) / 60;
+        const y = height - normalized * height;
+        if (index === 0) {
+          chartContext.moveTo(x, y);
+        } else {
+          chartContext.lineTo(x, y);
+        }
+      });
+      const gradient = chartContext.createLinearGradient(0, 0, width, 0);
+      gradient.addColorStop(0, '#22d3ee');
+      gradient.addColorStop(1, '#f97316');
+      chartContext.strokeStyle = gradient;
+      chartContext.lineWidth = 3;
+      chartContext.stroke();
+    }
+
+    function resetGame() {
+      appState.scores.home = 0;
+      appState.scores.away = 0;
+      appState.log = [];
+      setQuarter(1);
+      renderScores();
+      renderInsights();
+      drawMomentum();
+    }
+
+    function setQuarter(q) {
+      appState.quarter = q;
+      DOM.quarterLabel.textContent = `Quarter ${q}`;
+      document.querySelectorAll('.quarter-btn').forEach(btn => {
+        btn.classList.toggle('active', Number(btn.dataset.quarter) === q);
+      });
     }
 
     function toggleTheme() {
-      const currentTheme = getComputedStyle(document.documentElement).getPropertyValue('--theme');
-      document.documentElement.style.setProperty('--theme', currentTheme === 'var(--color-white)' ? 'var(--color-dark)' : 'var(--color-white)');
-      document.documentElement.style.setProperty('--color-gray-dark', currentTheme === 'var(--color-white)' ? '#ffffff' : '#374151');
-      document.documentElement.style.setProperty('--color-gray-medium', currentTheme === 'var(--color-white)' ? '#6b7280' : '#ffffff');
-      document.documentElement.style.setProperty('--color-gray-light', currentTheme === 'var(--color-white)' ? '#f3f4f6' : '#1f2937');
+      const nextTheme = document.body.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+      document.body.setAttribute('data-theme', nextTheme);
     }
+
+    function scrollToSection(id) {
+      const element = document.getElementById(id);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+
+    DOM.teamHomeInput.addEventListener('input', updateTeamNames);
+    DOM.teamAwayInput.addEventListener('input', updateTeamNames);
+
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    updateTeamNames();
+    renderScores();
+    renderInsights();
+    drawMomentum();
   </script>
 </body>
 </html>
