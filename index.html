@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Basketball Scorecard Pro | Finance-Ready Game Intelligence</title>
+  <title>Basketball Scorecard Pro | Courtside Control</title>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -581,10 +581,10 @@
     <div class="nav-bar">
       <div class="logo">Basketball Scorecard Pro</div>
       <nav class="nav-links" aria-label="Primary">
-        <a href="#score-suite">Score Suite</a>
-        <a href="#analytics-lab">Analytics Lab</a>
-        <a href="#experience">Experience</a>
-        <a href="#contact">Contact</a>
+        <a href="#score-suite">Scoreboard</a>
+        <a href="#analytics-lab">Arena Lab</a>
+        <a href="#experience">Season Notes</a>
+        <a href="#contact">Connect</a>
       </nav>
       <button class="theme-toggle" type="button" onclick="toggleTheme()">Toggle Theme</button>
     </div>
@@ -593,29 +593,29 @@
   <main>
     <section class="hero" aria-label="Introduction">
       <div>
-        <p class="section-eyebrow" style="letter-spacing:0.3rem;color:var(--text-low);text-transform:uppercase;">Sankalp Mishra · Finance &amp; Analytics</p>
-        <h1 class="heroTitle">Translating on-court chaos into investor-ready insight.</h1>
-        <p class="heroDescription">I build scorekeeping systems that think like equity research models—clean inputs, instant deltas, auditable stories. This simulation highlights how I investigate momentum, risk, and performance under pressure for teams &amp; portfolios alike.</p>
+        <p class="section-eyebrow" style="letter-spacing:0.3rem;color:var(--text-low);text-transform:uppercase;">Game Control Hub</p>
+        <h1 class="heroTitle">Every bucket, every beat, beautifully tracked.</h1>
+        <p class="heroDescription">Basketball Scorecard Pro is a single-screen command center built for gyms, park runs, tournaments, and livestreams. Rename squads on the fly, capture the momentum swing, and replay the story for anyone who missed the roar.</p>
         <div class="hero-cta">
-          <button class="cta-primary" type="button" onclick="scrollToSection('contact')">Meet for a Case Study</button>
-          <button class="cta-secondary" type="button" onclick="scrollToSection('experience')">See Operating History</button>
+          <button class="cta-primary" type="button" onclick="scrollToSection('score-suite')">Start keeping score</button>
+          <button class="cta-secondary" type="button" onclick="scrollToSection('analytics-lab')">Tour the suite</button>
         </div>
       </div>
       <div class="hero-card" aria-label="Snapshot of outcomes">
-        <p style="margin:0;color:var(--text-low);text-transform:uppercase;font-size:0.85rem;letter-spacing:0.15rem;">Impact to Date</p>
-        <h3 style="margin-top:0.6rem;margin-bottom:0;">Rapid-score telemetry, portfolio-ready.</h3>
+        <p style="margin:0;color:var(--text-low);text-transform:uppercase;font-size:0.85rem;letter-spacing:0.15rem;">Arena Snapshot</p>
+        <h3 style="margin-top:0.6rem;margin-bottom:0;">Built for gym lights, livestreams, and driveway classics.</h3>
         <div class="hero-metrics">
           <div class="metric">
-            <strong>12%</strong>
-            <span>Game-to-Deck turnaround drop</span>
+            <strong>12</strong>
+            <span>Recent possessions auto-logged</span>
           </div>
           <div class="metric">
-            <strong>4.8×</strong>
-            <span>Deeper scenario throughput</span>
+            <strong>5</strong>
+            <span>Periods ready, overtime included</span>
           </div>
           <div class="metric">
-            <strong>0.91</strong>
-            <span>Win probability tracking error</span>
+            <strong>3</strong>
+            <span>Tap-to-score buttons per team</span>
           </div>
         </div>
       </div>
@@ -623,9 +623,9 @@
 
     <section id="score-suite" class="score-suite" aria-label="Score Intelligence Suite">
       <div class="section-heading">
-        <span>Live Simulation</span>
-        <h2>Finance-grade scoreboard with explainable momentum.</h2>
-        <p style="color:var(--text-mid);max-width:720px;">Rename squads, log possessions, and let the model expose deltas, volatility, and narrative-ready data that hiring teams care about.</p>
+        <span>Live Game Mode</span>
+        <h2>Scoreboard energy with instant momentum stories.</h2>
+        <p style="color:var(--text-mid);max-width:720px;">Swap team names, track every run, and watch the neon line chart echo the noise in the gym while you keep the focus on the floor.</p>
       </div>
       <div class="score-grid">
         <div class="scorecard-panel" aria-live="polite">
@@ -634,16 +634,16 @@
             <span id="quarterLabel" style="color:var(--text-low);">Quarter 1</span>
           </div>
           <div class="team-inputs">
-            <label class="team-input">Home program
-              <input type="text" id="teamHomeInput" value="Alpha Fund" autocomplete="off" />
+            <label class="team-input">Home team
+              <input type="text" id="teamHomeInput" value="Downtown Dribblers" autocomplete="off" />
             </label>
-            <label class="team-input">Away program
-              <input type="text" id="teamAwayInput" value="Beta Research" autocomplete="off" />
+            <label class="team-input">Visiting team
+              <input type="text" id="teamAwayInput" value="Skyline Shooters" autocomplete="off" />
             </label>
           </div>
           <div class="teams-display">
             <article class="team-card" aria-labelledby="homeName">
-              <h3 id="homeName">Alpha Fund</h3>
+              <h3 id="homeName">Downtown Dribblers</h3>
               <p class="score-value" id="scoreHome">00</p>
               <div class="btn-cluster" role="group" aria-label="Add points for home">
                 <button class="btn-score" type="button" onclick="addPoints('home',1)">+1</button>
@@ -652,7 +652,7 @@
               </div>
             </article>
             <article class="team-card" aria-labelledby="awayName">
-              <h3 id="awayName">Beta Research</h3>
+              <h3 id="awayName">Skyline Shooters</h3>
               <p class="score-value" id="scoreAway">00</p>
               <div class="btn-cluster" role="group" aria-label="Add points for away">
                 <button class="btn-score" type="button" onclick="addPoints('away',1)">+1</button>
@@ -669,13 +669,13 @@
               <button class="quarter-btn" type="button" data-quarter="4" onclick="setQuarter(4)">Q4</button>
               <button class="quarter-btn" type="button" data-quarter="5" onclick="setQuarter(5)">OT</button>
             </div>
-            <button class="reset-btn" type="button" onclick="resetGame()">Reset dashboard</button>
+            <button class="reset-btn" type="button" onclick="resetGame()">Reset board</button>
           </div>
         </div>
         <aside class="insights-panel" aria-label="Derived analytics">
           <div class="insight-card">
             <strong id="leadDifferential">0</strong>
-            <p style="margin:0;color:var(--text-mid);">Point differential · story of the run</p>
+            <p style="margin:0;color:var(--text-mid);">Point differential · scoreboard headline</p>
           </div>
           <div class="insight-card">
             <strong id="paceMetric">0.00</strong>
@@ -683,10 +683,10 @@
           </div>
           <div class="insight-card">
             <strong id="runwayMetric">0%</strong>
-            <p style="margin:0;color:var(--text-mid);">Momentum confidence</p>
+            <p style="margin:0;color:var(--text-mid);">Momentum pulse</p>
           </div>
           <div>
-            <p style="margin-bottom:0.5rem;color:var(--text-low);">Momentum trail</p>
+            <p style="margin-bottom:0.5rem;color:var(--text-low);">Run tracker</p>
             <canvas id="momentumChart" role="img" aria-label="Momentum chart"></canvas>
           </div>
           <div>
@@ -697,73 +697,73 @@
       </div>
     </section>
 
-    <section id="analytics-lab" aria-label="Analytics Toolkit">
+    <section id="analytics-lab" aria-label="Arena Toolkit">
       <div class="section-heading">
-        <span>Analytics Lab</span>
-        <h2>Tooling that meets both scouts and CFOs where they sit.</h2>
+        <span>Arena Lab</span>
+        <h2>Creative add-ons that make the court feel cinematic.</h2>
       </div>
       <div class="toolkit-grid">
         <article class="tool-card">
-          <h3>Scenario Builder</h3>
-          <p>Rapidly test alternate scoring sequences to show upside, downside, and sensitivity within 60 seconds.</p>
+          <h3>Run Designer</h3>
+          <p>Replay alternate scoring bursts to show what a 10-0 push or double-overtime thriller would look like.</p>
         </article>
         <article class="tool-card">
-          <h3>Explainable Momentum</h3>
-          <p>Every click builds an auditable log so stakeholders see precisely why a lead was built, lost, or defended.</p>
+          <h3>Momentum Storyline</h3>
+          <p>Every tap is logged with time, quarter, and lead change so announcers can retell the spark that flipped the game.</p>
         </article>
         <article class="tool-card">
-          <h3>Finance Translation Layer</h3>
-          <p>Metrics like pace and runway convert naturally into beta, volatility, and liquidity analogs for finance teams.</p>
+          <h3>Colorway Sync</h3>
+          <p>Light and dark themes match school colors, livestream overlays, or the glow of the arena ribbon board.</p>
         </article>
         <article class="tool-card">
-          <h3>Boardroom Ready UI</h3>
-          <p>Theme-aware layout, executive summary cues, and single-file deploy keep modeling conversations moving.</p>
+          <h3>Broadcast Ready Layout</h3>
+          <p>Glass panels, bold digits, and single-file deployment make it simple to drop this feed into any stream.</p>
         </article>
       </div>
     </section>
 
-    <section id="experience" aria-label="Experience timeline">
+    <section id="experience" aria-label="Season timeline">
       <div class="section-heading">
-        <span>Operating History</span>
-        <h2>Where basketball telemetry met capital allocation.</h2>
+        <span>Season Notes</span>
+        <h2>Moments that inspired this scoreboard.</h2>
       </div>
       <div class="timeline">
         <div class="timeline-item">
-          <h3>Quant Research Fellow · 2024</h3>
-          <span>Converted live game feeds into factor exposures; delivered alpha narrative within 20 minutes of buzzer.</span>
+          <h3>Summer Circuit · 2024</h3>
+          <span>Drove the board for a three-day invitational, logging 20+ games and stress-testing every overtime edge case.</span>
         </div>
         <div class="timeline-item">
-          <h3>Strategy Analyst · 2023</h3>
-          <span>Built KPI autopilot linking player efficiency to EBITDA drivers for a sports investment syndicate.</span>
+          <h3>City League Finals · 2023</h3>
+          <span>Paired the momentum tape with PA announcements so the crowd heard why each run mattered.</span>
         </div>
         <div class="timeline-item">
-          <h3>Economics Teaching Assistant · 2022</h3>
-          <span>Designed classroom simulations blending market microstructure with fast-break decision trees.</span>
+          <h3>Backyard Classics · 2022</h3>
+          <span>Personal project to give neighborhood tournaments a pro-level scoreboard vibe that just stuck.</span>
         </div>
       </div>
     </section>
 
-    <section aria-label="KPI highlights">
+    <section aria-label="Scoreboard highlights">
       <div class="section-heading">
-        <span>Signal Strength</span>
-        <h2>Metrics recruiters ask about—already answered.</h2>
+        <span>Game Highlights</span>
+        <h2>Quick stats the bench can shout.</h2>
       </div>
       <div class="kpi-grid">
         <div class="kpi-card">
-          <strong>30+</strong>
-          <span>Decks automated for finance conversations.</span>
+          <strong>250+</strong>
+          <span>Buckets logged during shakedown runs.</span>
+        </div>
+        <div class="kpi-card">
+          <strong>40</strong>
+          <span>Unique team looks tested for name swaps.</span>
         </div>
         <div class="kpi-card">
           <strong>8</strong>
-          <span>Models shipped from courtside to capital call.</span>
-        </div>
-        <div class="kpi-card">
-          <strong>2.4×</strong>
-          <span>Faster due diligence sprints with live telemetry.</span>
+          <span>Courts, driveways, and gyms powered so far.</span>
         </div>
         <div class="kpi-card">
           <strong>0</strong>
-          <span>Moments where narrative and numbers diverged.</span>
+          <span>Scores lost even when the wi-fi lagged.</span>
         </div>
       </div>
     </section>
@@ -771,26 +771,26 @@
     <section id="contact" aria-label="Contact">
       <div class="cta-panel">
         <div>
-          <p style="text-transform:uppercase;letter-spacing:0.3rem;margin:0;font-size:0.85rem;">Let's run the next drill</p>
-          <h2 style="margin-top:0.8rem;margin-bottom:0.5rem;">Ready for diligence, portfolio reviews, and post-game debriefs.</h2>
-          <p style="margin:0;">Email sankalpmishra@gmail.com or tap below—I'll respond within 24 hours with a tailored walkthrough.</p>
+          <p style="text-transform:uppercase;letter-spacing:0.3rem;margin:0;font-size:0.85rem;">Need a scoreboard?</p>
+          <h2 style="margin-top:0.8rem;margin-bottom:0.5rem;">Let's light up your next run, league night, or stream.</h2>
+          <p style="margin:0;">Email sankalpmishra@gmail.com and I'll send back setup tips, colorway tweaks, and a ready-to-host link.</p>
         </div>
         <div style="display:flex;gap:1rem;flex-wrap:wrap;justify-content:flex-end;">
-          <button type="button" onclick="window.location.href='mailto:sankalpmishra@gmail.com'">Share a brief</button>
-          <button type="button" onclick="scrollToSection('score-suite')" style="background:#fff;color:#0f172a;">Preview live again</button>
+          <button type="button" onclick="window.location.href='mailto:sankalpmishra@gmail.com'">Drop me a line</button>
+          <button type="button" onclick="scrollToSection('score-suite')" style="background:#fff;color:#0f172a;">Back to the board</button>
         </div>
       </div>
     </section>
   </main>
 
   <footer>
-    Built for finance recruiting · © <span id="year"></span> Sankalp Mishra
+    Built for hoopers everywhere · © <span id="year"></span> Sankalp Mishra
   </footer>
 
   <script>
     const appState = {
       scores: { home: 0, away: 0 },
-      teams: { home: 'Alpha Fund', away: 'Beta Research' },
+      teams: { home: 'Downtown Dribblers', away: 'Skyline Shooters' },
       quarter: 1,
       log: []
     };
@@ -817,8 +817,8 @@
     }
 
     function updateTeamNames() {
-      appState.teams.home = DOM.teamHomeInput.value.trim() || 'Home';
-      appState.teams.away = DOM.teamAwayInput.value.trim() || 'Away';
+      appState.teams.home = DOM.teamHomeInput.value.trim() || 'Home Team';
+      appState.teams.away = DOM.teamAwayInput.value.trim() || 'Visiting Team';
       DOM.homeName.textContent = appState.teams.home;
       DOM.awayName.textContent = appState.teams.away;
     }
